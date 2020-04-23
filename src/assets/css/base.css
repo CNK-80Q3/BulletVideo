@@ -27,8 +27,7 @@ body {
   background: var(--color-background);
   color: var(--color-text);
   /* rem vw/vh */
-  width: 100vw;
-  overflow: hidden;
+  padding-right: 0 !important
 }
 
 a {
