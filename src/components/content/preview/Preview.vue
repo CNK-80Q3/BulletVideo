@@ -2,21 +2,18 @@
   <div id="preview">
     <img
       src="../../../assets/img/dev/placeholder.png"
-      alt=""
+      alt
       class="preview-cover"
       ref="cover"
-      @mouseover="onMouseover($event)"
+      @mouseover="onMouseover"
     />
     <div
       class="preview-main"
+      ref="previewMain"
       @mousemove="onMousemove($event)"
-      @mouseleave="onMouseleave($event)"
+      @mouseleave="onMouseleave"
     >
-      <ProgressBar
-        :currentProgress="currentPicture"
-        :fullProgress="100"
-        ref="progressBar"
-      />
+      <ProgressBar :currentProgress="currentPicture" :fullProgress="100" ref="progressBar" />
     </div>
   </div>
 </template>
@@ -38,27 +35,28 @@ export default {
   },
   methods: {
     onMousemove(e) {
-      let width = e.target.offsetWidth;
-      let height = e.target.offsetHeight;
-      console.log(width, height);
-      let itemWidth = e.target.offsetWidth / this.allPicture;
+      const previewMain = this.$refs.previewMain
+      let width = previewMain.offsetWidth;
+      let height = previewMain.offsetHeight;
+      let itemWidth = previewMain.offsetWidth / this.allPicture;
       let positionX = e.offsetX;
       // 第几张图片
       this.currentPicture = Math.ceil(positionX / itemWidth);
-      // 图片的横纵轴位置
+      // 获取当前图片的横纵轴位置
       let x = (this.currentPicture - 1) % 10;
       let y = Math.ceil(this.currentPicture / 10) - 1;
-      console.log(x, ":", y);
-      e.target.style.backgroundPosition = `-${x * width}px -${y * height}px`;
-      e.target.style.backgroundSize = `${width * 10}px`;
+      // 设置当前背景图定位
+      previewMain.style.backgroundPosition = `-${x * width}px -${y * height}px`;
       this.$refs.progressBar.getProgress();
     },
-    onMouseover(e) {
-      setTimeout(() => {
-        this.$refs.cover.style.display = "none";
-      }, 200);
+    onMouseover() {
+      const previewMain = this.$refs.previewMain
+      let width = previewMain.offsetWidth;
+      let height = previewMain.offsetHeight;
+      this.$refs.previewMain.style.backgroundSize = `${width * 10}px ${height * 10}px`;
+      this.$refs.cover.style.display = "none";
     },
-    onMouseleave(e) {
+    onMouseleave() {
       this.$refs.cover.style.display = "block";
     }
   }

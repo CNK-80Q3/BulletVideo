@@ -1,6 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
-import { Avatar, Button, Drawer, Icon, Image } from "element-ui";
+import { Avatar, Button, Drawer, Icon, Image, Link } from "element-ui";
 import router from "./router";
 import store from "./store";
 
@@ -13,6 +13,7 @@ Vue.use(Button);
 Vue.use(Drawer);
 Vue.use(Icon);
 Vue.use(Image);
+Vue.use(Link);
 
 new Vue({
   router,

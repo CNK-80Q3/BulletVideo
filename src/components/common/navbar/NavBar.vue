@@ -26,13 +26,5 @@ export default {
   justify-content: space-between;
   align-items: center;
   z-index: 10000;
-
-  .left {
-    width: 20%;
-  }
-
-  .center {
-    width: 60%;
-  }
 }
 </style>

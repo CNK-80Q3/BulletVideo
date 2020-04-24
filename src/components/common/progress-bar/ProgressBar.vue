@@ -1,7 +1,7 @@
 <template>
   <div id="progress-content">
     <div class="progress-wrapper">
-      <div class="progress-bar" ref="progressBar"></div>
+      <span class="progress-bar" ref="progressBar"></span>
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
     }
   },
   methods: {
-    getProgress() {
+    getProgress(c, f) {
       this.$refs.progressBar.style.width = `${(this.currentProgress /
         this.fullProgress) *
         100}%`;
@@ -36,19 +36,19 @@ export default {
 <style lang="less" scoped>
 #progress-content {
   width: 100%;
-  height: 40px;
-  background-color: rgba(60, 60, 60, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
 
   .progress-wrapper {
-    width: 90%;
-    height: 8px;
-    border: 1px solid #3e3e3e;
-    border-radius: 4px;
+    margin: 10px 10px;
+    width: 100%;
+    height: 6px;
+    background-color: #444;
+    border-radius: 3px;
 
     .progress-bar {
+      display: block;
       width: 0px;
       height: 6px;
       background-color: #fff;

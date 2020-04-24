@@ -2,18 +2,18 @@
   <div id="home">
     <NavBar>
       <template v-slot:left>
-        <el-button
-          @click="drawer = true"
-          type="primary"
-          icon="el-icon-s-unfold"
-        />
-        <BVIcon />
+        <div class="nav-left">
+          <el-link @click="drawer = true" icon="el-icon-s-unfold" :underline="false" />
+          <BVIcon />
+        </div>
       </template>
       <template v-slot:center>
         <Search />
       </template>
       <template v-slot:right>
-        <el-avatar :size="40" icon="el-icon-user"></el-avatar>
+        <div class="nav-right">
+          <el-avatar :size="40" icon="el-icon-user"></el-avatar>
+        </div>
       </template>
     </NavBar>
     <div id="default">
@@ -23,13 +23,10 @@
         </el-drawer>
       </aside>
       <main id="main">
-        <div class="title">推荐视频</div>
+        <div class="title">{{mainTitle}}</div>
         <GridContent>
           <template v-slot:item>
-            <MainPreview
-              v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-              :key="index"
-            />
+            <MainPreview v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" :key="index" />
           </template>
         </GridContent>
       </main>
@@ -56,7 +53,8 @@ export default {
   },
   data() {
     return {
-      drawer: false
+      drawer: false,
+      mainTitle: "推荐视频"
     };
   }
 };
@@ -69,6 +67,26 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
 
+  .nav-left {
+    width: 20%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    a {
+      font-size: 30px;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+
+  .nav-right {
+    width: 20%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
   #default {
     width: 100%;
     display: flex;
@@ -77,13 +95,13 @@ export default {
 
     aside {
       position: relative;
-      width: 15%;
+      width: 0%;
       height: 100vh;
       background-color: antiquewhite;
     }
 
     main {
-      width: 85%;
+      width: 100%;
       padding: 20px;
       background-color: #131313;
       display: flex;
