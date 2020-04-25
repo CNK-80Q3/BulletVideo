@@ -58,14 +58,14 @@ export default {
   }
 
   .preview-info {
-    height: 80px;
-    margin-top: 10px;
+    padding-top: 10px;
     font-size: 10px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
 
     .avatar {
+      padding: 10px 0;
       width: 15%;
       height: 100%;
       display: flex;
@@ -74,6 +74,7 @@ export default {
     }
 
     .preview-text {
+      margin: 10px 0;
       color: #aaa;
       font-weight: 500;
       font-size: 1.2em;

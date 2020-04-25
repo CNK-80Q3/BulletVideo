@@ -1,7 +1,7 @@
 <template>
   <div id="navbar">
     <slot name="left"></slot>
-    <slot name="center" class="center"></slot>
+    <slot name="center"></slot>
     <slot name="right"></slot>
   </div>
 </template>
@@ -17,14 +17,16 @@ export default {
 @bgColor: #1e1e1e;
 
 #navbar {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  // z-index: 10000;
   height: 70px;
-  padding: 0 15px;
+  padding: 0 20px;
   background-color: @bgColor;
-  border: 1px solid #000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 10000;
 }
 </style>

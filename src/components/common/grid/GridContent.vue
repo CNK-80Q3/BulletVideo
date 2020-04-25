@@ -14,7 +14,7 @@ export default {
 #grid-content {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   padding-top: 0.5em;
 }

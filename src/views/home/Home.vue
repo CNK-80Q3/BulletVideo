@@ -12,21 +12,35 @@
       </template>
       <template v-slot:right>
         <div class="nav-right">
-          <el-avatar :size="40" icon="el-icon-user"></el-avatar>
+          <el-link icon="el-icon-video-camera-solid" :underline="false"></el-link>
+          <el-link icon="el-icon-s-grid" :underline="false"></el-link>
+          <el-link icon="el-icon-message-solid" :underline="false"></el-link>
+          <el-avatar :size="40" icon="el-icon-user-solid"></el-avatar>
         </div>
       </template>
     </NavBar>
     <div id="default">
       <aside id="side-menu">
-        <el-drawer title="我是标题" :visible.sync="drawer" direction="ltr">
-          <span>我来啦!</span>
+        <el-drawer
+          :visible.sync="drawer"
+          direction="ltr"
+          size="260px"
+          :show-close="false"
+          :withHeader="false"
+          title="BulletVideo"
+          class="drawer"
+        >
+          <SideMenu></SideMenu>
         </el-drawer>
       </aside>
       <main id="main">
         <div class="title">{{mainTitle}}</div>
         <GridContent>
           <template v-slot:item>
-            <MainPreview v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" :key="index" />
+            <MainPreview
+              v-for="(item, index) in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]"
+              :key="index"
+            />
           </template>
         </GridContent>
       </main>
@@ -40,6 +54,8 @@ import Search from "components/common/search/Search";
 import GridContent from "components/common/grid/GridContent";
 
 import BVIcon from "components/content/icon/BVIcon";
+import SideMenu from "components/content/side-menu/SideMenu";
+
 import MainPreview from "./childComps/main-preview/MainPreview";
 
 export default {
@@ -48,6 +64,7 @@ export default {
     NavBar,
     BVIcon,
     Search,
+    SideMenu,
     GridContent,
     MainPreview
   },
@@ -62,6 +79,8 @@ export default {
 
 <style lang="less" scoped>
 #home {
+  position: relative;
+  top: 70px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -85,6 +104,14 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    display: flex;
+
+    a {
+      margin-right: 20px;
+      font-size: 25px;
+      color: #fff;
+      text-decoration: none;
+    }
   }
 
   #default {
@@ -97,12 +124,15 @@ export default {
       position: relative;
       width: 0%;
       height: 100vh;
-      background-color: antiquewhite;
+
+      .drawer {
+        outline: none;
+      }
     }
 
     main {
       width: 100%;
-      padding: 20px;
+      padding: 30px;
       background-color: #131313;
       display: flex;
       flex-direction: column;
@@ -111,7 +141,8 @@ export default {
 
       .title {
         height: 50px;
-        font-size: 28px;
+        margin: 0 10px;
+        font-size: 26px;
         font-weight: 900;
         color: #fff;
         line-height: 50px;

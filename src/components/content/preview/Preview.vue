@@ -5,7 +5,7 @@
       alt
       class="preview-cover"
       ref="cover"
-      @mouseover="onMouseover"
+      @mouseenter="onMouseenter"
     />
     <div
       class="preview-main"
@@ -49,7 +49,7 @@ export default {
       previewMain.style.backgroundPosition = `-${x * width}px -${y * height}px`;
       this.$refs.progressBar.getProgress();
     },
-    onMouseover() {
+    onMouseenter() {
       const previewMain = this.$refs.previewMain
       let width = previewMain.offsetWidth;
       let height = previewMain.offsetHeight;
