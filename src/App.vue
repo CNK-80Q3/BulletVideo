@@ -1,12 +1,18 @@
 <template>
   <div id="app">
+    <MainNavbar />
     <router-view />
   </div>
 </template>
 
 <script>
+import MainNavbar from "components/content/main-navbar/MainNavbar";
+
 export default {
-  name: "app"
+  name: "app",
+  components: {
+    MainNavbar
+  }
 };
 </script>
 
@@ -22,8 +28,7 @@ export default {
 }
 
 #app a {
-  font-weight: bold;
-  color: #2c3e50;
+  color: #409eff;
 }
 
 #app a.router-link-exact-active {

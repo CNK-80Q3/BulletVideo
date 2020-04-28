@@ -1,6 +1,8 @@
 <template>
   <div id="bullet-video-icon">
-    <span>BulletVideo</span>
+    <a href="/home">
+      <span>BulletVideo</span>
+    </a>
   </div>
 </template>
 

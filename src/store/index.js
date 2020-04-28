@@ -7,8 +7,10 @@ import getters from "./getters";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: mutations,
-  actions: actions,
-  modules: getters
+  state: {
+    drawerOpen: false
+  },
+  mutations,
+  actions,
+  getters
 });

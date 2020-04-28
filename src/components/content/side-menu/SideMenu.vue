@@ -2,7 +2,11 @@
   <div id="side-menu">
     <MenuHeader>
       <template v-slot:left>
-        <el-link @click="drawer = false" icon="el-icon-s-unfold" :underline="false" />
+        <el-link
+          @click="drawer = false"
+          icon="el-icon-s-unfold"
+          :underline="false"
+        />
       </template>
       <template v-slot:right>
         <BVIcon />
@@ -15,7 +19,7 @@
             <i :class="item.icon"></i>
           </template>
           <template v-slot:right>
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </template>
         </MenuItem>
       </template>
@@ -30,7 +34,7 @@
             <el-avatar size="small" icon="el-icon-user-solid"></el-avatar>
           </template>
           <template v-slot:right>
-            <span>{{item.title}}</span>
+            <span>{{ item.title }}</span>
           </template>
         </MenuItem>
       </template>

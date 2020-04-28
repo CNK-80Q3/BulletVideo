@@ -1,14 +1,10 @@
 <template>
-  <div id="main-preview">
+  <div id="watch-preview">
     <div class="preview">
       <Preview />
     </div>
-    <div class="main-preview-info">
-      <PreviewInfo :videoInfo="videoInfo">
-        <template v-slot:avatar>
-          <el-avatar :size="40" icon="el-icon-user-solid" />
-        </template>
-      </PreviewInfo>
+    <div class="watch-preview-info">
+      <PreviewInfo :videoInfo="videoInfo" />
     </div>
   </div>
 </template>
@@ -18,7 +14,7 @@ import Preview from "components/content/preview/Preview";
 import PreviewInfo from "components/content/preview-info/PreviewInfo";
 
 export default {
-  name: "MainPreview",
+  name: "WatchPreview",
   components: {
     Preview,
     PreviewInfo
@@ -40,21 +36,26 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#main-preview {
-  margin: 10px;
+#watch-preview {
+  margin-top: 10px;
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  flex: 1 1 300px;
+  flex: 1 1 240px;
 
   .preview {
-    width: 100%;
-    height: 210px;
-  }
+    width: 300px;
+    height: 100%;
+    height: 140px;
+    display: flex;
+    flex-basis: 240px;
+    flex-grow: 0;
+    flex-shrink: 0;
 
-  .main-preview-info {
-    margin-top: 10px;
+    #preview {
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
   }
 }
 </style>

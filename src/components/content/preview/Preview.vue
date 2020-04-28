@@ -13,7 +13,11 @@
       @mousemove="onMousemove($event)"
       @mouseleave="onMouseleave"
     >
-      <ProgressBar :currentProgress="currentPicture" :fullProgress="100" ref="progressBar" />
+      <ProgressBar
+        :currentProgress="currentPicture"
+        :fullProgress="100"
+        ref="progressBar"
+      />
     </div>
   </div>
 </template>
@@ -35,7 +39,7 @@ export default {
   },
   methods: {
     onMousemove(e) {
-      const previewMain = this.$refs.previewMain
+      const previewMain = this.$refs.previewMain;
       let width = previewMain.offsetWidth;
       let height = previewMain.offsetHeight;
       let itemWidth = previewMain.offsetWidth / this.allPicture;
@@ -50,10 +54,11 @@ export default {
       this.$refs.progressBar.getProgress();
     },
     onMouseenter() {
-      const previewMain = this.$refs.previewMain
+      const previewMain = this.$refs.previewMain;
       let width = previewMain.offsetWidth;
       let height = previewMain.offsetHeight;
-      this.$refs.previewMain.style.backgroundSize = `${width * 10}px ${height * 10}px`;
+      this.$refs.previewMain.style.backgroundSize = `${width * 10}px ${height *
+        10}px`;
       this.$refs.cover.style.display = "none";
     },
     onMouseleave() {
@@ -66,7 +71,7 @@ export default {
 <style lang="less" scoped>
 #preview {
   width: 100%;
-  height: 211px;
+  height: 100%;
   overflow: hidden;
 
   .preview-main {

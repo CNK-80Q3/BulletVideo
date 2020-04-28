@@ -27,7 +27,7 @@ body {
   background: var(--color-background);
   color: var(--color-text);
   /* rem vw/vh */
-  padding-right: 0 !important
+  padding-right: 0 !important;
 }
 
 a {

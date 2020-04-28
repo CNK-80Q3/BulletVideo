@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="contribution">
     <div id="default">
       <aside id="side-menu">
         <el-drawer
@@ -15,73 +15,49 @@
         </el-drawer>
       </aside>
       <main id="main">
-        <Boundary boundaryTitle="推荐视频"></Boundary>
-        <GridContent>
-          <template v-slot:item>
-            <MainPreview v-for="(item, index) in numList" :key="index" />
-          </template>
-        </GridContent>
+        <div class="title"></div>
+        <el-upload
+          class="upload-demo"
+          drag
+          action="https://jsonplaceholder.typicode.com/posts/"
+          multiple
+        >
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__tip" slot="tip">
+            只能上传jpg/png文件，且不超过500kb
+          </div>
+        </el-upload>
       </main>
     </div>
   </div>
 </template>
 
 <script>
-import GridContent from "components/common/grid/GridContent";
-import Boundary from "components/common/boundary/Boundary";
-
-import BVIcon from "components/content/icon/BVIcon";
 import SideMenu from "components/content/side-menu/SideMenu";
 
-import MainPreview from "./childComps/main-preview/MainPreview";
-
 export default {
-  name: "Home",
+  name: "Contribution",
   components: {
-    BVIcon,
-    SideMenu,
-    Boundary,
-    GridContent,
-    MainPreview
+    SideMenu
   },
   data() {
-    return {
-      mainTitle: "推荐视频",
-      numList: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20
-      ]
-    };
+    return {};
   }
 };
 </script>
 
 <style lang="less" scoped>
-#home {
+#contribution {
   position: relative;
   top: 70px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  background-color: antiquewhite;
 
   #default {
     width: 100%;
@@ -100,12 +76,22 @@ export default {
 
     main {
       width: 100%;
+      height: 100%;
       padding: 30px;
       background-color: #131313;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+
+      .title {
+        height: 50px;
+        margin: 0 10px;
+        font-size: 26px;
+        font-weight: 900;
+        color: #fff;
+        line-height: 50px;
+      }
     }
   }
 }

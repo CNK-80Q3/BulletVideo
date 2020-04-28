@@ -1,6 +1,15 @@
 import Vue from "vue";
 import App from "./App.vue";
-import { Avatar, Button, Drawer, Icon, Image, Link } from "element-ui";
+import {
+  Avatar,
+  Button,
+  Drawer,
+  Icon,
+  Image,
+  Link,
+  Switch,
+  Upload
+} from "element-ui";
 import router from "./router";
 import store from "./store";
 
@@ -14,6 +23,8 @@ Vue.use(Drawer);
 Vue.use(Icon);
 Vue.use(Image);
 Vue.use(Link);
+Vue.use(Switch);
+Vue.use(Upload);
 
 new Vue({
   router,
