@@ -50,7 +50,6 @@ export default {
 
   .preview {
     width: 100%;
-    height: 210px;
   }
 
   .main-preview-info {

@@ -1,17 +1,13 @@
 <template>
   <div id="preview">
-    <img
-      src="../../../assets/img/dev/placeholder.png"
-      alt
-      class="preview-cover"
-      ref="cover"
-      @mouseenter="onMouseenter"
-    />
+    <div class="preview-cover" ref="cover">
+      <img src="../../../assets/img/dev/placeholder.png" alt />
+    </div>
     <div
       class="preview-main"
       ref="previewMain"
+      @mouseenter="onMouseenter()"
       @mousemove="onMousemove($event)"
-      @mouseleave="onMouseleave"
     >
       <ProgressBar
         :currentProgress="currentPicture"
@@ -34,15 +30,27 @@ export default {
     return {
       src: "../../../assets/img/dev/placeholder.png",
       currentPicture: 0,
-      allPicture: 100
+      allPicture: 100,
+      isCoverShow: true,
+      width: 0,
+      height: 0
     };
+  },
+  computed: {
+    hideCover() {
+      return this.isCoverShow
+        ? {
+            opacity: "0"
+          }
+        : {
+            opacity: "1"
+          };
+    }
   },
   methods: {
     onMousemove(e) {
       const previewMain = this.$refs.previewMain;
-      let width = previewMain.offsetWidth;
-      let height = previewMain.offsetHeight;
-      let itemWidth = previewMain.offsetWidth / this.allPicture;
+      let itemWidth = this.width / this.allPicture;
       let positionX = e.offsetX;
       // 第几张图片
       this.currentPicture = Math.ceil(positionX / itemWidth);
@@ -50,19 +58,20 @@ export default {
       let x = (this.currentPicture - 1) % 10;
       let y = Math.ceil(this.currentPicture / 10) - 1;
       // 设置当前背景图定位
-      previewMain.style.backgroundPosition = `-${x * width}px -${y * height}px`;
+      previewMain.style.backgroundPosition = `-${x * this.width}px -${y *
+        this.height}px`;
       this.$refs.progressBar.getProgress();
     },
     onMouseenter() {
       const previewMain = this.$refs.previewMain;
-      let width = previewMain.offsetWidth;
-      let height = previewMain.offsetHeight;
-      this.$refs.previewMain.style.backgroundSize = `${width * 10}px ${height *
-        10}px`;
-      this.$refs.cover.style.display = "none";
-    },
-    onMouseleave() {
-      this.$refs.cover.style.display = "block";
+      this.width = previewMain.offsetWidth;
+      this.height = previewMain.offsetHeight;
+      this.$refs.previewMain.style.backgroundSize = `${this.width * 10}px ${this
+        .height * 10}px`;
+      // this.isCoverShow === true &&
+      //   setTimeout(() => {
+      //     this.isCoverShow = false;
+      //   }, 200);
     }
   }
 };
@@ -70,21 +79,36 @@ export default {
 
 <style lang="less" scoped>
 #preview {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
 
   .preview-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     background: url(https://i0.hdslb.com/bfs/videoshot/87607720.jpg@.webp);
     width: 100%;
     height: 100%;
+    opacity: 0;
+    transition: opacity 0.4s 0s;
+  }
+  .preview-main:hover {
+    opacity: 1;
+    transition: opacity 0.4s 0.4s;
   }
 
   .preview-cover {
-    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    visibility: visible;
+    transition-delay: 3s;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

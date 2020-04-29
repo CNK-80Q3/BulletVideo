@@ -44,18 +44,10 @@ export default {
   flex: 1 1 240px;
 
   .preview {
-    width: 300px;
-    height: 100%;
-    height: 140px;
     display: flex;
     flex-basis: 240px;
     flex-grow: 0;
     flex-shrink: 0;
-
-    #preview {
-      flex-grow: 1;
-      flex-shrink: 1;
-    }
   }
 }
 </style>
