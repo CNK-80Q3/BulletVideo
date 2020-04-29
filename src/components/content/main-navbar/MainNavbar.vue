@@ -47,7 +47,6 @@ export default {
     drawerControl() {
       let drawerOpen = this.$store.state.drawerOpen;
       this.$store.commit("drawerControl");
-      console.log(this.$store.state.drawerOpen);
     }
   }
 };

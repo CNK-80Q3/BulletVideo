@@ -11,11 +11,20 @@
     <div class="comment-main">
       <el-avatar :size="40" icon="el-icon-user-solid" />
       <div class="comment-input">
-        <label for="comment" class="comment-label">留个评论再走吧 ...</label>
+        <label
+          for="comment"
+          class="comment-label"
+          :style="commentLableFocusStyle"
+          >留个评论再走吧 ...</label
+        >
         <input id="comment" type="text" @focus="inputFocus" @blur="inputBlur" />
       </div>
     </div>
-    <div class="comment-buttons" :class="{ hide: buttonsHide }">
+    <div
+      class="comment-buttons"
+      :class="{ hide: buttonsHide }"
+      :style="commentBtnsFocusStyle"
+    >
       <el-button plain @click="inputBlur">取消</el-button>
       <el-button type="primary">评论</el-button>
     </div>
@@ -27,23 +36,36 @@ export default {
   name: "CommentArea",
   data() {
     return {
-      buttonsHide: true
+      buttonsHide: true,
+      isInputFocus: false
     };
+  },
+  computed: {
+    commentLableFocusStyle() {
+      return this.isInputFocus
+        ? {
+            top: "0"
+          }
+        : {
+            top: "20px"
+          };
+    },
+    commentBtnsFocusStyle() {
+      return this.isInputFocus
+        ? {
+            display: "flex"
+          }
+        : {
+            display: "none"
+          };
+    }
   },
   methods: {
     inputFocus() {
-      const commentBtns = document.querySelector(".comment-buttons");
-      const commentLabel = document.querySelector(".comment-label");
-
-      commentBtns.style.display = "flex";
-      commentLabel.style.top = "0";
+      this.isInputFocus = true;
     },
     inputBlur() {
-      const commentBtns = document.querySelector(".comment-buttons");
-      const commentLabel = document.querySelector(".comment-label");
-
-      commentBtns.style.display = "none";
-      commentLabel.style.top = "20px";
+      this.isInputFocus = false;
     }
   }
 };
