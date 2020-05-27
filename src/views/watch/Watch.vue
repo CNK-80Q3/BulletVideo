@@ -24,6 +24,9 @@
               <template v-slot:author-name>
                 <div></div>
               </template>
+              <template v-slot:video-toolbar>
+                <VideoToolbar :videoToolbarData="videoToolbarData" />
+              </template>
             </PreviewInfo>
             <DividingLine />
           </div>
@@ -32,25 +35,51 @@
             <DividingLine />
           </div>
           <div class="comment">
-            <CommentArea />
+            <ToComment />
             <CommentItem
-              :commentInfo="commentInfo[0]"
-              v-for="(item, index) in numList"
-            />
+              v-for="(item, index) in commentList"
+              :commentInfo="item"
+              :key="item.id"
+            >
+              <template v-slot:more-reply>
+                <div class="more-reply">
+                  <span class="show-more" @click="subCommentdisplay()">
+                    显示更多回复
+                    <i class="el-icon-caret-bottom"></i>
+                  </span>
+                  <div
+                    class="sub-comment"
+                    :class="{ 'sub-comment-show': isSubCommentShow }"
+                  >
+                    <CommentItem
+                      :avatarSize="30"
+                      v-for="(item, index) in commentList"
+                      :commentInfo="item"
+                      :key="item.id"
+                    />
+                  </div>
+                </div>
+              </template>
+            </CommentItem>
           </div>
         </div>
         <div class="recommend">
           <div class="next-play">
+            <PlayQueue />
             <Boundary boundaryTitle="接下来播放">
               <template v-slot:right>
                 <el-switch v-model="autoNext" active-text="自动播放" />
               </template>
             </Boundary>
-            <WatchPreview />
+            <WatchPreview :recommendVideo="recommendVideos[0]" />
             <DividingLine />
           </div>
           <div class="recommend-list">
-            <WatchPreview v-for="(item, index) in numList" />
+            <WatchPreview
+              v-for="(item, index) in recommendVideos"
+              :recommendVideo="item"
+              :key="item.id"
+            />
           </div>
         </div>
       </main>
@@ -66,10 +95,20 @@ import SideMenu from "components/content/side-menu/SideMenu";
 import PreviewInfo from "components/content/preview-info/PreviewInfo";
 import AuthorInfo from "components/content/author-info/AuthorInfo";
 import BVPlayer from "components/content/video-player/BVPlayer";
+import PlayQueue from "components/content/play-queue/PlayQueue";
 
 import WatchPreview from "./childComps/WatchPreview";
-import CommentArea from "./childComps/CommentArea";
+import VideoToolbar from "./childComps/video-toolbar/VideoToolbar";
+import ToComment from "./childComps/ToComment";
 import CommentItem from "./childComps/CommentItem";
+
+import {
+  getWatchPageRecommends,
+  getVideoInfoById,
+  getWatchPageComments,
+  VideoDetailData,
+  WatchPageRecommends
+} from "network/watch";
 
 export default {
   name: "Watch",
@@ -78,7 +117,9 @@ export default {
     DividingLine,
     SideMenu,
     BVPlayer,
-    CommentArea,
+    VideoToolbar,
+    PlayQueue,
+    ToComment,
     CommentItem,
     WatchPreview,
     PreviewInfo,
@@ -87,49 +128,47 @@ export default {
   data() {
     return {
       autoNext: true,
-      numList: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20
-      ],
-      videoInfo: [
-        {
-          videoTitle:
-            "這是個教人長大的黑暗童話，深度解析《潘神的迷宮》怪物原型|哇薩比抓馬WasabiDrama",
-          authorName: "哇萨比抓马 WasabiDrama",
-          viewerQuantity: "51万次观看",
-          time: "4个月前"
-        }
-      ],
-      commentInfo: [
-        {
-          commentFrom: "Lok Shing Lai",
-          commentDate: "3天前",
-          commentSubstance:
-            "XD 感謝狗哥 終於弄懂啦  ==之前都沒玩過 線在整個霧颯颯",
-          likeCount: 26,
-          dislikeCount: 6,
-          commentReply: [1, 2, 3, 4, 5]
-        }
-      ]
+      recommendVideos: [],
+      videoId: 0,
+      videoInfo: {},
+      videoToolbarData: [],
+      commentList: [],
+      isSubCommentShow: true
     };
+  },
+  methods: {
+    getRecommends() {
+      getWatchPageRecommends().then(res => {
+        this.recommendVideos = new WatchPageRecommends(res).recommends;
+      });
+    },
+    getVideoInfo(id) {
+      getVideoInfoById(id).then(res => {
+        let detailData = new VideoDetailData(res);
+        this.videoInfo = detailData.videoInfo;
+        this.videoToolbarData = detailData.videoToolbarData;
+        console.log(detailData);
+      });
+    },
+    getComments(type, id) {
+      getWatchPageComments(type, id).then(res => {
+        this.commentList = res;
+      });
+    },
+    getSubComments(type, id) {
+      getWatchPageComments(type, id).then(res => {
+        this.subCommentList = res;
+      });
+    },
+    subCommentdisplay() {
+      this.isSubCommentShow = !this.isSubCommentShow;
+    }
+  },
+  created() {
+    this.videoId = this.$route.params.id;
+    this.getRecommends();
+    this.getVideoInfo(this.videoId);
+    this.getComments(0, this.videoId);
   }
 };
 </script>
@@ -171,18 +210,42 @@ export default {
         margin: 10px;
         width: 100%;
         height: 100%;
+        display: flex;
         flex-wrap: wrap;
-        flex-basis: 500px;
-        flex-shrink: 5;
-        flex-grow: 5;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex: 10 0 600px;
 
         .player {
-          width: 100%;
+          flex-basis: 100%;
           height: 600px;
         }
 
         .video-info {
+          width: 100%;
           margin-top: 16px;
+        }
+
+        .author-info {
+          width: 100%;
+        }
+      }
+
+      .comment {
+        width: 100%;
+
+        .more-reply {
+          margin-top: 10px;
+
+          .show-more {
+            font-size: 1.4em;
+            color: #409eff;
+          }
+
+          .sub-comment-show {
+            display: none;
+          }
         }
       }
 

@@ -1,5 +1,5 @@
 <template>
-  <div id="boundary">
+  <div id="boundary" :style="style">
     <div class="boundary-left">
       <img src="" alt="" />
       <span class="title">{{ boundaryTitle }}</span>
@@ -13,11 +13,24 @@
 <script>
 export default {
   name: "Boundary",
+  data() {
+    return {
+      style: {
+        "padding-left": this.marginLeft
+      }
+    };
+  },
   props: {
     boundaryTitle: {
       type: String,
       default() {
         return "";
+      }
+    },
+    marginLeft: {
+      type: String,
+      default() {
+        return "0";
       }
     }
   }

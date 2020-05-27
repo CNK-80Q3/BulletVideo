@@ -1,49 +1,69 @@
 <template>
   <div id="comment-item">
     <div class="avatar">
-      <el-avatar :size="40" icon="el-icon-user-solid" />
+      <el-avatar :size="avatarSize" icon="el-icon-user-solid" />
     </div>
     <div class="comment-main">
       <div class="comment-info">
         <div class="comment-info--top">
-          <span class="comment-from">{{ commentInfo.commentFrom }}</span>
-          <span class="comment-date">{{ commentInfo.commentDate }}</span>
+          <span class="comment-from">{{ commentInfo.author_id }}</span>
+          <span class="comment-date">{{
+            commentInfo.comment_date | dateFilter
+          }}</span>
         </div>
-        <div class="comment-substance">{{ commentInfo.commentSubstance }}</div>
+        <div class="comment-substance">{{ commentInfo.comment_content }}</div>
       </div>
       <div class="comment-buttons">
         <el-link icon="el-icon-sunny" :underline="false">{{
-          commentInfo.likeCount
+          commentInfo.like_count | numberFilter
         }}</el-link>
         <el-link icon="el-icon-heavy-rain" :underline="false">{{
-          commentInfo.dislikeCount
+          commentInfo.dislike_count | numberFilter
         }}</el-link>
         <el-link :underline="false">回复</el-link>
       </div>
-      <div class="show-more">
-        查看 {{ commentInfo.commentReply.length }} 条回复
-        <i class="el-icon-caret-bottom"></i>
-      </div>
+      <slot name="more-reply"></slot>
     </div>
   </div>
 </template>
 
 <script>
+import { numberFormat, dateFormat } from "common/utils";
+
 export default {
   name: "CommentItem",
+  data() {
+    return {
+      likeCount: 0,
+      dislikeCount: 0
+    };
+  },
   props: {
     commentInfo: {
       type: Object,
       default: {}
+    },
+    avatarSize: {
+      type: Number,
+      default: 40
     }
   },
-  methods: {}
+  filters: {
+    numberFilter(value) {
+      return numberFormat(value);
+    },
+    dateFilter(value) {
+      let date = new Date(value * 1000);
+      return dateFormat(date, "yyyy-MM-dd");
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
 #comment-item {
-  margin: 30px 0;
+  margin: 20px 0;
+  width: 100%;
   text-align: start;
   font-size: 10px;
   color: #fff;
@@ -89,22 +109,15 @@ export default {
     }
 
     .comment-buttons {
-      margin-top: 10px;
-      margin-bottom: 10px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
 
       a {
         font-size: 1.4em;
-        margin-right: 10px;
+        margin-right: 30px;
         color: #666;
       }
-    }
-
-    .show-more {
-      font-size: 1.4em;
-      color: #409eff;
     }
   }
 }

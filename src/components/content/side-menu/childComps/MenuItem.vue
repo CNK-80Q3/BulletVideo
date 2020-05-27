@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "MenuItem"
-}
+};
 </script>
 
 <style lang="less" scoped>

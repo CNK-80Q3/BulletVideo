@@ -9,11 +9,7 @@
       @mouseenter="onMouseenter()"
       @mousemove="onMousemove($event)"
     >
-      <ProgressBar
-        :currentProgress="currentPicture"
-        :fullProgress="100"
-        ref="progressBar"
-      />
+      <ProgressBar :currentProgress="currentPicture" :fullProgress="100" ref="progressBar" />
     </div>
   </div>
 </template>
@@ -40,11 +36,11 @@ export default {
     hideCover() {
       return this.isCoverShow
         ? {
-            opacity: "0"
-          }
+          opacity: "0"
+        }
         : {
-            opacity: "1"
-          };
+          opacity: "1"
+        };
     }
   },
   methods: {
@@ -89,12 +85,13 @@ export default {
     top: 0;
     left: 0;
     right: 0;
-    background: url(https://i0.hdslb.com/bfs/videoshot/87607720.jpg@.webp);
+    background: url("https://i0.hdslb.com/bfs/videoshot/84054067.jpg@.webp");
     width: 100%;
     height: 100%;
     opacity: 0;
     transition: opacity 0.4s 0s;
   }
+
   .preview-main:hover {
     opacity: 1;
     transition: opacity 0.4s 0.4s;
@@ -105,9 +102,11 @@ export default {
     height: 100%;
     visibility: visible;
     transition-delay: 3s;
+
     img {
       width: 100%;
       height: 100%;
+      vertical-align: bottom;
     }
   }
 }

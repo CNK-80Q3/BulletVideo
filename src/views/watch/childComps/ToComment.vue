@@ -1,5 +1,5 @@
 <template>
-  <div id="comment-area">
+  <div id="to-comment">
     <div class="comment-head">
       <div class="comment-count">
         <div>{{ 500 }}条评论</div>
@@ -11,20 +11,11 @@
     <div class="comment-main">
       <el-avatar :size="40" icon="el-icon-user-solid" />
       <div class="comment-input">
-        <label
-          for="comment"
-          class="comment-label"
-          :style="commentLableFocusStyle"
-          >留个评论再走吧 ...</label
-        >
+        <label for="comment" class="comment-label" :style="commentLableFocusStyle">留个评论再走吧 ...</label>
         <input id="comment" type="text" @focus="inputFocus" @blur="inputBlur" />
       </div>
     </div>
-    <div
-      class="comment-buttons"
-      :class="{ hide: buttonsHide }"
-      :style="commentBtnsFocusStyle"
-    >
+    <div class="comment-buttons" :class="{ hide: buttonsHide }" :style="commentBtnsFocusStyle">
       <el-button plain @click="inputBlur">取消</el-button>
       <el-button type="primary">评论</el-button>
     </div>
@@ -44,20 +35,20 @@ export default {
     commentLableFocusStyle() {
       return this.isInputFocus
         ? {
-            top: "0"
-          }
+          top: "0"
+        }
         : {
-            top: "20px"
-          };
+          top: "20px"
+        };
     },
     commentBtnsFocusStyle() {
       return this.isInputFocus
         ? {
-            display: "flex"
-          }
+          display: "flex"
+        }
         : {
-            display: "none"
-          };
+          display: "none"
+        };
     }
   },
   methods: {
@@ -72,7 +63,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#comment-area {
+#to-comment {
   margin-top: 10px;
   margin-bottom: 50px;
   width: 100%;

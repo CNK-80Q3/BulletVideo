@@ -18,6 +18,7 @@ export default {
 
 <style>
 @import "~assets/css/base.css";
+@import "~assets/css/element-ui/el-dropdown.css";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

@@ -11,14 +11,18 @@
           title="BulletVideo"
           class="drawer"
         >
-          <SideMenu></SideMenu>
+          <SideMenu />
         </el-drawer>
       </aside>
       <main id="main">
         <Boundary boundaryTitle="推荐视频"></Boundary>
         <GridContent>
           <template v-slot:item>
-            <MainPreview v-for="(item, index) in numList" :key="index" />
+            <MainPreview
+              v-for="(item, index) in recommendVideos"
+              :key="item.id"
+              :recommendVideo="item"
+            />
           </template>
         </GridContent>
       </main>
@@ -35,6 +39,7 @@ import SideMenu from "components/content/side-menu/SideMenu";
 
 import MainPreview from "./childComps/main-preview/MainPreview";
 
+import { getHomePageRecommend, HomePageRecommend } from "network/home";
 export default {
   name: "Home",
   components: {
@@ -47,29 +52,18 @@ export default {
   data() {
     return {
       mainTitle: "推荐视频",
-      numList: [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20
-      ]
+      recommendVideos: []
     };
+  },
+  methods: {
+    getHomePageRecommend() {
+      getHomePageRecommend().then(res => {
+        this.recommendVideos = new HomePageRecommend(res).recommends;
+      });
+    }
+  },
+  created() {
+    this.getHomePageRecommend();
   }
 };
 </script>
